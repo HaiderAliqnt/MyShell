@@ -1,0 +1,48 @@
+echo start
+pwd
+cd /tmp
+pwd
+cd -
+cd
+cd /nonexistent
+cd a b c
+cd ~
+cd ""
+ls | wc -l
+ls |
+| ls
+ls | | wc
+&
+ls & &
+> file
+echo hi >
+echo hi <
+echo "unterminated
+echo 'unterminated
+echo a & echo b &
+sleep 1 &
+sleep 1 &
+sleep 1 &
+ps
+ps extra
+kill
+kill abc
+kill -1
+kill 99999
+kill 0
+nosuchprogram
+nosuchprogram | cat
+echo x | nosuchprogram
+cat < /nonexistent
+echo x > /nonexistent/dir/file
+echo a | echo b | echo c | echo d | echo e | cat
+echo "" ''
+echo '' "" '' ""
+echo a>>/tmp/mysh_stress.txt>>/tmp/mysh_stress.txt
+sort < /tmp/mysh_stress.txt | uniq | wc -l > /dev/null
+pwd | cat | cat | cat
+ps | cat
+seq 1 30000 | head -1
+exit 1 2
+exit abc
+exit 0

@@ -1,0 +1,1 @@
+cat < in.txt | sort -r >> out.txt & echo done
