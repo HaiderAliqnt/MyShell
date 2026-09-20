@@ -7,9 +7,9 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "../include/CS311_A01_2024385_builtins.h"
-#include "../include/CS311_A01_2024385_executor.h"
-#include "../include/CS311_A01_2024385_utils.h"
+#include "CS311_A01_2024385_builtins.h"
+#include "CS311_A01_2024385_executor.h"
+#include "CS311_A01_2024385_utils.h"
 
 
 
@@ -115,7 +115,7 @@ restore:
 }
 
 
- */
+
 static int child_run(shell_t *sh, const command_t *cmd, int in_fd,
                      const int out_pipe[2], int background, pid_t pgid)
 {
