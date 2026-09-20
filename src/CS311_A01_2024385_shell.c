@@ -5,10 +5,10 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "../include/CS311_A01_2024385_executor.h"
-#include "../include/CS311_A01_2024385_parser.h"
-#include "../include/CS311_A01_2024385_shell.h"
-#include "../lib/linenoise.h"
+#include "CS311_A01_2024385_executor.h"
+#include "CS311_A01_2024385_parser.h"
+#include "CS311_A01_2024385_shell.h"
+#include "linenoise.h"
 
 #define PROMPT_MAX 1024
 

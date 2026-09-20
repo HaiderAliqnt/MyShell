@@ -1,11 +1,18 @@
 CC       := gcc
 TARGET   := mysh
+PREFIX   := CS311_A01_2024385
 
 SRC_DIR  := src
 INC_DIR  := include
-LIB_DIR  := libs/linenoise
 TEST_DIR := tests
 BUILD    := build
+
+# linenoise.c may sit directly in lib/ or in a subfolder (and may carry the prefix)
+LIB_SRC  := $(firstword $(wildcard lib/*linenoise.c lib/*/*linenoise.c))
+LIB_DIR  := $(dir $(LIB_SRC))
+ifeq ($(LIB_SRC),)
+$(error linenoise.c not found under lib/ - check where you put it)
+endif
 
 # -g -O0 keeps gdb sessions readable. Use `make OPT=-O2` for an optimised build.
 OPT      ?= -O0
@@ -13,10 +20,12 @@ CFLAGS   := -std=gnu11 -Wall -Wextra -g $(OPT) -I$(INC_DIR) -I$(LIB_DIR) -MMD -M
 
 SRCS     := $(wildcard $(SRC_DIR)/*.c)
 OBJS     := $(patsubst $(SRC_DIR)/%.c,$(BUILD)/%.o,$(SRCS)) $(BUILD)/linenoise.o
-# everything except main.o - reused by the unit tests
-CORE_OBJS:= $(filter-out $(BUILD)/main.o,$(OBJS))
+# everything except main - reused by the unit tests
+MAIN_OBJ := $(BUILD)/$(PREFIX)_main.o
+CORE_OBJS:= $(filter-out $(MAIN_OBJ),$(OBJS))
 
-UNIT_TESTS := $(BUILD)/test_parser $(BUILD)/test_proctable
+# every tests/test_*.c becomes its own unit-test program
+UNIT_TESTS := $(patsubst $(TEST_DIR)/%.c,$(BUILD)/%,$(wildcard $(TEST_DIR)/test_*.c))
 
 .PHONY: all run test unit-test func-test gdb-test gdb valgrind clean
 
@@ -28,7 +37,7 @@ $(TARGET): $(OBJS)
 $(BUILD)/%.o: $(SRC_DIR)/%.c | $(BUILD)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(BUILD)/linenoise.o: $(LIB_DIR)/linenoise.c | $(BUILD)
+$(BUILD)/linenoise.o: $(LIB_SRC) | $(BUILD)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(BUILD)/test_%: $(TEST_DIR)/test_%.c $(CORE_OBJS) | $(BUILD)

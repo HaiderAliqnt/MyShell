@@ -8,8 +8,8 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "../include/CS311_A01_2024385_builtins.h"
-#include "../include/CS311_A01_2024385_utils.h"
+#include "CS311_A01_2024385_builtins.h"
+#include "CS311_A01_2024385_utils.h"
 
 
 #define KILL_GRACE_POLLS    50

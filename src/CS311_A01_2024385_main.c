@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../include/CS311_A01_2024385_shell.h"
+#include "CS311_A01_2024385_shell.h"
 
 int main(int argc, char *argv[])
 {
